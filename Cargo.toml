@@ -1,0 +1,6 @@
+[package]
+
+name = "rusty-life"
+version = "0.0.1"
+authors = ["Mirza Prasovic <mprasovic@lexmark.com>"]
+
