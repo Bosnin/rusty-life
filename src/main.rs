@@ -1,12 +1,21 @@
 #![feature(core)]
+#![feature(std_misc)]
+#![feature(io)]
+
 mod game;
+
+use std::old_io::timer;
+use std::time::Duration;
 
 static BOARD_SIZE : usize = 16;
 
 fn main() {
-    let game = game::Game::new(load_board());
-    game.draw();
-    game.advance();
+    let mut game = game::Game::new(load_board());
+    loop {
+        game.draw();
+        game.advance();
+        timer::sleep(Duration::milliseconds(1000));
+    }
 }
 
 fn load_board() -> Vec<Vec<bool>> {
@@ -24,7 +33,11 @@ fn load_board() -> Vec<Vec<bool>> {
     }
 
     //Setup a begining state.
-    board[1][1] = true;
+    board[1][0] = true;
+    board[2][1] = true;
+    board[0][2] = true;
+    board[1][2] = true;
+    board[2][2] = true;
 
     return board;
 }
