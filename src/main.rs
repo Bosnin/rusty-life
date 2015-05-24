@@ -1,31 +1,31 @@
-#![feature(core)]
-#![feature(std_misc)]
-#![feature(io)]
-
 mod game;
+extern crate ncurses;
 
-use std::old_io::timer;
-use std::time::Duration;
+use ncurses::*;
 
 static BOARD_SIZE : usize = 16;
 
 fn main() {
     let mut game = game::Game::new(load_board());
+
+    initscr();
     loop {
-        game.draw();
+        printw(&(game.draw()));
+        refresh();
         game.advance();
-        timer::sleep(Duration::milliseconds(1000));
+        std::thread::sleep_ms(1000);
     }
+    endwin();
 }
 
 fn load_board() -> Vec<Vec<bool>> {
     let mut board : Vec<Vec<bool>> = Vec::with_capacity(BOARD_SIZE);
 
     //Setup base board.
-    for x in 0..BOARD_SIZE {
+    for _ in 0..BOARD_SIZE {
         let mut my_vec : Vec<bool> = Vec::with_capacity(BOARD_SIZE);
 
-        for y in 0..BOARD_SIZE {
+        for _ in 0..BOARD_SIZE {
             my_vec.push(false);
         }
 
