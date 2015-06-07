@@ -9,13 +9,15 @@ fn main() {
     let mut game = game::Game::new(load_board());
 
     initscr();
+    noecho();
+
     loop {
         printw(&(game.draw()));
         refresh();
         game.advance();
-        std::thread::sleep_ms(1000);
+        std::thread::sleep_ms(500);
+        clear();
     }
-    endwin();
 }
 
 fn load_board() -> Vec<Vec<bool>> {
